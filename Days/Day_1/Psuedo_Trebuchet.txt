@@ -1,0 +1,27 @@
+Import jumbled_strings
+
+For each jumbled_strings in jumbled_string {
+    For each character in jumbled_string {
+        Find numbers{
+            For each number in numbers {
+                Find first number {
+                    numbers.split(first number)
+                } 
+                Find last number {
+                    For each number in numbers {
+                        if number, continue
+                    }
+                    return last number in string
+                }
+            }
+            add number couplet to array
+        }
+    }
+}
+
+For each couplet in couplets[]{
+    couplets_sum = couplets[n] + couplets[n+1]
+}
+
+
+print couplets[sum]
