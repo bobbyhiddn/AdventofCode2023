@@ -1,0 +1,56 @@
+
+jumbled_strings = { 
+    "two1nine", "eightwothree", "abcone2threexyz", "xtwone3four",
+    "4nineeightseven2", "zoneight234", "7pqrstsixteen"
+}
+
+number_words = {
+    "one": "1", "two": "2", "three": "3", "four": "4",
+    "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
+}
+
+For each number_word in number_words {
+    if number_word in jumbled_strings {
+        jumbled_strings.replace(number_word, number_words[number_word])
+    }
+}
+
+# The main problem here is that I need to to account for jumbled strings where the letters can make up multiple numbers like in "eightwothree" where it is actually 823.
+
+For each jumbled_strings in jumbled_string {
+    For each character in jumbled_string {
+        Find numbers{
+            For each number in numbers {
+                Find first number {
+                    numbers.split(first number)
+                } 
+                Find last number {
+                    For each number in numbers {
+                        if number, continue
+                    }
+                    return last number in string
+                }
+                Make new_number = first number + last number (if first number is 1 and second number is 2, new_number = 12)
+            }
+            add number couplet to array
+        }
+    }
+}
+
+For each couplet in couplets[]{
+    couplets_sum = couplets[n] + couplets[n+1]
+}
+
+
+print couplets[sum]
+
+Here is how it is supposed to work:
+
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
+In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
