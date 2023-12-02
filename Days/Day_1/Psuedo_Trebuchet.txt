@@ -13,6 +13,7 @@ For each jumbled_strings in jumbled_string {
                     }
                     return last number in string
                 }
+                Make new_number = first number + last number (if first number is 1 and second number is 2, new_number = 12)
             }
             add number couplet to array
         }

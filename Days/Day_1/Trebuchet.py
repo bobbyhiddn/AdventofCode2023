@@ -1,6 +1,10 @@
 import re
 
 def concatenate_first_and_last_digit(s):
+    # Replace spelled-out numbers with their digit equivalents
+    for number_word, digit in number_words.items():
+        s = s.replace(number_word, digit)
+    
     # Using regular expression to find all numbers in the string
     numbers = re.findall(r'\d+', s)
     if not numbers:
@@ -10,9 +14,17 @@ def concatenate_first_and_last_digit(s):
     last_digit = numbers[-1][-1]
     return int(first_digit + last_digit)
 
-# Read jumbled strings from 'Trebuchet.txt'
-with open('Trebuchet.bk.txt', 'r') as file:
-    jumbled_strings = [line.strip() for line in file]
+# Define the mapping of number words to their numerical equivalents
+number_words = {
+    "one": "1", "two": "2", "three": "3", "four": "4",
+    "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
+}
+
+# Read jumbled strings from a file (assuming the file contains one string per line)
+jumbled_strings = [
+    "two1nine", "eightwothree", "abcone2threexyz", "xtwone3four",
+    "4nineeightseven2", "zoneight234", "7pqrstsixteen"
+]
 
 # Initialize a variable to store the sum of all concatenated numbers
 total_sum = 0

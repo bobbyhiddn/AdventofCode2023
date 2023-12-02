@@ -7,9 +7,12 @@ number_words = {
 }
 
 def find_and_convert_numbers(s):
+    # Extract words from the string that match our number_words keys
+    words = re.findall(r'\b(' + '|'.join(number_words.keys()) + r')\b', s, flags=re.IGNORECASE)
+    
     # Replace spelled out numbers with digits
-    for word, digit in number_words.items():
-        s = s.replace(word, digit)
+    for word in words:
+        s = s.replace(word, number_words[word.lower()])
     
     # Find all numbers in the modified string
     return re.findall(r'\d+', s)
