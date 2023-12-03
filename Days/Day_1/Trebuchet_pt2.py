@@ -1,4 +1,5 @@
 import re
+import sys
 
 # Mapping of spelled out numbers to digits
 number_words = {
@@ -7,13 +8,34 @@ number_words = {
 }
 
 def find_and_convert_numbers(s):
-    # Extract words from the string that match our number_words keys
-    words = re.findall(r'\b(' + '|'.join(number_words.keys()) + r')\b', s, flags=re.IGNORECASE)
+    # Dictionary to hold the presence of each number word
+    number_presence = {number_word: False for number_word in number_words.keys()}
+    
+    # List to store the order of numbers found
+    number_order = []
 
-    # Convert each word to its corresponding digit and join them together
-    number_string = ''.join(number_words[word.lower()] for word in words)
+    # Check for each number word in the string
+    for number_word in number_words.keys():
+        if number_word in s.lower():
+            number_presence[number_word] = True
+            # Find all occurrences and add their start position and corresponding digit to number_order
+            for match in re.finditer(number_word, s, flags=re.IGNORECASE):
+                number_order.append((match.start(), number_words[number_word]))
+    
+    # Add actual numerical digits from the string
+    for match in re.finditer(r'\d', s):
+        number_order.append((match.start(), match.group()))
 
-    # Return the number string if it's not empty, else None
+    # Sort the number_order list based on appearance in the string
+    number_order.sort(key=lambda x: x[0])
+
+    # Create the final number string
+    number_string = ''.join(digit for _, digit in number_order)
+
+    # Display the presence of each number word and the created string
+    print(f"Presence in '{s}': {number_presence}")
+    print(f"Converted '{s}' to '{number_string}'")
+
     return number_string if number_string else None
 
 def concatenate_first_and_last_digit(s):
@@ -26,7 +48,7 @@ def concatenate_first_and_last_digit(s):
     return int(first_digit + last_digit)
 
 # Read jumbled strings from 'Trebuchet.txt'
-with open('Trebuchet.bk.txt', 'r') as file:
+with open(sys.argv[1], 'r') as file:
     jumbled_strings = [line.strip() for line in file]
 
 # Create a new list of concatenated numbers
