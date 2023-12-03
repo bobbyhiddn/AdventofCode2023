@@ -1,5 +1,23 @@
 import re
 
+# Define the mapping of number words to their numerical equivalents
+number_words = {
+    "one": "1", "two": "2", "three": "3", "four": "4",
+    "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
+}
+
+# Read jumbled strings from a file (assuming the file contains one string per line)
+jumbled_strings = [
+    "two1nine", "eightwothree", "abcone2threexyz", "xtwone3four",
+    "4nineeightseven2", "zoneight234", "7pqrstsixteen"
+]
+
+def identify_number_words(s):
+    # Extract words from the string that match our number_words keys
+    for number_word in number_words.keys():
+        if number_word in s:
+            print(f"Found '{number_word}' in '{s}'")
+
 def concatenate_first_and_last_digit(s):
     # Replace spelled-out numbers with their digit equivalents
     for number_word, digit in number_words.items():
@@ -13,18 +31,6 @@ def concatenate_first_and_last_digit(s):
     first_digit = numbers[0][0]
     last_digit = numbers[-1][-1]
     return int(first_digit + last_digit)
-
-# Define the mapping of number words to their numerical equivalents
-number_words = {
-    "one": "1", "two": "2", "three": "3", "four": "4",
-    "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
-}
-
-# Read jumbled strings from a file (assuming the file contains one string per line)
-jumbled_strings = [
-    "two1nine", "eightwothree", "abcone2threexyz", "xtwone3four",
-    "4nineeightseven2", "zoneight234", "7pqrstsixteen"
-]
 
 # Initialize a variable to store the sum of all concatenated numbers
 total_sum = 0
