@@ -1,4 +1,5 @@
 import re
+import sys
 
 # Mapping of spelled out numbers to digits
 number_words = {
@@ -7,40 +8,57 @@ number_words = {
 }
 
 def find_and_convert_numbers(s):
-    # Extract words from the string that match our number_words keys
-    words = re.findall(r'\b(' + '|'.join(number_words.keys()) + r')\b', s, flags=re.IGNORECASE)
+    # Dictionary to hold the presence of each number word
+    number_presence = {number_word: False for number_word in number_words.keys()}
     
-    # Replace spelled out numbers with digits
-    for word in words:
-        s = s.replace(word, number_words[word.lower()])
+    # List to store the order of numbers found
+    number_order = []
+
+    # Check for each number word in the string
+    for number_word in number_words.keys():
+        if number_word in s.lower():
+            number_presence[number_word] = True
+            # Find all occurrences and add their start position and corresponding digit to number_order
+            for match in re.finditer(number_word, s, flags=re.IGNORECASE):
+                number_order.append((match.start(), number_words[number_word]))
     
-    # Find all numbers in the modified string
-    return re.findall(r'\d+', s)
+    # Add actual numerical digits from the string
+    for match in re.finditer(r'\d', s):
+        number_order.append((match.start(), match.group()))
+
+    # Sort the number_order list based on appearance in the string
+    number_order.sort(key=lambda x: x[0])
+
+    # Create the final number string
+    number_string = ''.join(digit for _, digit in number_order)
+
+    # Display the presence of each number word and the created string
+    print(f"Presence in '{s}': {number_presence}")
+    print(f"Converted '{s}' to '{number_string}'")
+
+    return number_string if number_string else None
 
 def concatenate_first_and_last_digit(s):
-    numbers = find_and_convert_numbers(s)
-    if not numbers:
+    number_string = find_and_convert_numbers(s)
+    if not number_string:
         return None  # No numbers found
-    # Take the first digit of the first number and the last digit of the last number
-    first_digit = numbers[0][0]
-    last_digit = numbers[-1][-1]
+    # Take the first and last digit
+    first_digit = number_string[0]
+    last_digit = number_string[-1]
     return int(first_digit + last_digit)
 
 # Read jumbled strings from 'Trebuchet.txt'
-with open('Trebuchet.bk.txt', 'r') as file:
+with open(sys.argv[1], 'r') as file:
     jumbled_strings = [line.strip() for line in file]
 
-# Initialize a variable to store the sum of all concatenated numbers
-total_sum = 0
+# Create a new list of concatenated numbers
+concatenated_numbers = [concatenate_first_and_last_digit(s) for s in jumbled_strings if concatenate_first_and_last_digit(s) is not None]
 
-# Processing each jumbled string
-for jumbled_string in jumbled_strings:
-    concatenated_number = concatenate_first_and_last_digit(jumbled_string)
-    if concatenated_number is not None:
-        print(f"Concatenated number in '{jumbled_string}': {concatenated_number}")
-        total_sum += concatenated_number
-    else:
-        print(f"No numbers found in '{jumbled_string}'")
+# Process and print each concatenated number
+for jumbled_string, concatenated_number in zip(jumbled_strings, concatenated_numbers):
+    print(f"Concatenated number in '{jumbled_string}': {concatenated_number}")
 
-# Print the total sum
+# Calculate and print the total sum
+total_sum = sum(concatenated_numbers)
 print(f"Total sum of concatenated numbers: {total_sum}")
+

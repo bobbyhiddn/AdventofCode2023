@@ -54,3 +54,5 @@ xtwone3four
 zoneight234
 7pqrstsixteen
 In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
+
+I think  we should iterate over each line and mark if one-nine are present in the number, then store that as a boolean value such as: eightwone(one, true; two, true; three, false; etc, etc; eight, true; nine, false). Something like this. Then it would go back through and figure out the order those numbers appear in the string. It should also take into account actual numerical digits present in the string at that point.
