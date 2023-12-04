@@ -1,5 +1,5 @@
 .gitignore
-.\Days\Day_1\Trebuchet.txt
-.\Days\Day_2\Puzzle_Input.txt
-.\Days\Day_3\Grid.txt
-.\Days\Day_4\Scratchcards.txt
+./Days/Day_1/Trebuchet.txt
+./Days/Day_2/Puzzle_Input.txt
+./Days/Day_3/Grid.txt
+./Days/Day_4/Scratchcards.txt
