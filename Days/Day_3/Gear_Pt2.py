@@ -19,7 +19,6 @@ def find_horizontal_number(grid, row, col):
 
 def find_gear_ratios(grid):
     gear_ratios_sum = 0
-    symbols = ['*']
 
     for N in range(len(grid)):
         for J in range(len(grid[N])):

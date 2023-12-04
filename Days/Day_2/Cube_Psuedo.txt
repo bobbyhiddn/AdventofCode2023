@@ -1,0 +1,46 @@
+So I thought I needed to generate a random number and spent some time refactoring my custom random number generator lol
+
+Instead, it turns out I just needed to parse the data for the any of the games where the numbers of the colored cubes exceeded their max values, then sum up the game ids to form a number.
+
+So:
+
+Initialize game_sum_number = 0
+Define max_red, max_green, max_blue
+
+For each game {
+    Create an array with a name equal to the game id and values equal to the number of cubes of each color
+}
+
+For each game_array {
+    If the number of cubes of any color does not exceed the value of that color's max value {
+        Game_sum_number += game_array_name_id
+    }
+}
+
+Return game_sum_number
+
+Now, for part two of the puzzle: 
+
+As you continue your walk, the Elf poses a second question: in each game you played, what is the fewest number of cubes of each color that could have been in the bag to make the game possible?
+
+The power of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together. The power of the minimum set of cubes in game 1 is 48. In games 2-5 it was 12, 1560, 630, and 36, respectively. Adding up these five powers produces the sum 2286.
+
+So this is pretty easy, I just need to parse over the cubes, figure out the max red, blue, green possible in each game and then multiply those numbers together, then sum up the result. Way easier than the part to yesterday. 
+
+So:
+
+Initialize game_sum_number = 0
+
+For each game_array {
+    Check for the largest number in each color and save their multiplied value to a variable {
+        color_power = max_red * max_green * max_blue
+    }
+}
+
+Sum up the color_power values for each game{
+    game_sum_number += color_power
+}
+
+Return game_sum_number
+
+I think that covers it.
